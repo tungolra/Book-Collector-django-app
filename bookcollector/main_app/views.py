@@ -1,9 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views import generic
 
-from .models import Book
+from .models import Book, Format
+from .forms import FormatForm
 
 # Create your views here.
 
@@ -23,7 +24,8 @@ def about(request):
 
 def books_detail(request, book_id):
     book = Book.objects.get(id=book_id)
-    return render(request, 'books/detail.html', {'book': book})
+    format_form = FormatForm()
+    return render(request, 'books/detail.html', {'book': book, 'format_form': format_form})
 
 
 class BookCreate(generic.CreateView):
@@ -42,6 +44,15 @@ class BookUpdate(generic.UpdateView):
 class BookDelete(generic.DeleteView):
     model = Book
     success_url = '/books/'
+
+def add_format(request, book_id): 
+    form = FormatForm(request.POST)
+    if form.is_valid():
+        new_format = form.save(commit=False)
+        new_format.book_id = book_id
+        new_format.save()
+    # return HttpResponseRedirect(reverse('books:detail', book_id=(book.id)))
+    return redirect('books:detail', book_id)
 
 
 # class HomeView(generic.View):

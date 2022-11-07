@@ -13,4 +13,32 @@
     <a href="{% url 'books:books_delete' book.id%}">Delete</a>
   </div>
 </div>
+<div>
+  <form action="{% url 'books:add_format' book.id %}" method="POST">
+    {%csrf_token%} {{format_form.as_p}}
+    <input type="submit" class="btn" value="Add Format" />
+  </form>
+</div>
+<div>
+  <table class="striped">
+    <thead>
+      <tr>
+        <th>Format</th>
+        <th>Price</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for formats in book.format_set.all %}
+      <tr>
+        <td>{{formats.get_format_display}}</td>
+        <td>${{formats.price}}</td>
+      </tr>
+      {%endfor%}
+    </tbody>
+  </table>
+</div>
+<script>
+  var formatEl = document.getElementById("id_format");
+  M.FormSelect.init(formatEl);
+</script>
 {% endblock %}
