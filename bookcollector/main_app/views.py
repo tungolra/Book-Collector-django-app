@@ -38,14 +38,15 @@ class BookCreate(generic.CreateView):
 class BookUpdate(generic.UpdateView):
     model = Book
     fields = '__all__'
-    success_url = '/books/'
+    # success_url = '/books/'
 
 
 class BookDelete(generic.DeleteView):
     model = Book
     success_url = '/books/'
 
-def add_format(request, book_id): 
+
+def add_format(request, book_id):
     form = FormatForm(request.POST)
     if form.is_valid():
         new_format = form.save(commit=False)
@@ -65,6 +66,7 @@ def add_format(request, book_id):
 class IndexView(generic.ListView):
     model = Book
     template_name = 'books/index.html'
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         return context

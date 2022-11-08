@@ -14,7 +14,7 @@ class Book(models.Model):
         return f"{self.author}: {self.title} ({self.publish_year})"
 
     def get_absolute_url(self):
-        return reverse('detail', kwargs={'book_id': self.id})
+        return reverse('books:detail', kwargs={'book_id': self.id})
 
 
 class Format(models.Model):
@@ -22,6 +22,7 @@ class Format(models.Model):
     ('S', 'Soft Cover'),
     ('H', 'Hard Cover'),
     ('E', 'Electronic Copy'),
+    ('A', 'Audio Book')
 )
     format = models.CharField(
         max_length=1,
@@ -34,3 +35,5 @@ class Format(models.Model):
 
     def __str__(self):
         return f"Format: {self.get_format_display()}, Price: {self.price}"
+        
+
