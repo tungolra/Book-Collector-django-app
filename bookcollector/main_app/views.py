@@ -3,7 +3,7 @@ from django.urls import reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views import generic
 
-from .models import Book, Format
+from .models import Book, Format, Subject
 from .forms import FormatForm
 
 # Create your views here.
@@ -16,12 +16,6 @@ def home(request):
 def about(request):
     return render(request, 'about.html')
 
-
-# def books_index(request):
-#     books = Book.objects.all()
-#     return render(request, 'books/index.html', {'books': books})
-
-
 def books_detail(request, book_id):
     book = Book.objects.get(id=book_id)
     format_form = FormatForm()
@@ -30,7 +24,6 @@ def books_detail(request, book_id):
 
 class BookCreate(generic.CreateView):
     model = Book
-    # fields = ['author', 'title', 'genre', 'publish_year']
     fields = '__all__'
     success_url = '/books/'
 
@@ -38,8 +31,6 @@ class BookCreate(generic.CreateView):
 class BookUpdate(generic.UpdateView):
     model = Book
     fields = '__all__'
-    # success_url = '/books/'
-
 
 class BookDelete(generic.DeleteView):
     model = Book
@@ -61,7 +52,6 @@ class IndexView(generic.ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         return context
-#         # how to pass in booklist with CBV?
 
 # class BookDetailsView(generic.DetailView):
 #     model = Book

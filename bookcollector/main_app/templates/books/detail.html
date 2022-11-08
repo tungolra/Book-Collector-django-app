@@ -37,6 +37,20 @@
     </tbody>
   </table>
 </div>
+
+<div>
+  <h3>Subjects</h3>
+  {% if book.subjects.count %} {% for book in book.subjects.all %}
+  <div class="card">
+    <div class="card-content">
+      <span class="card-title"> {{ subjects.type }} </span>
+    </div>
+  </div>
+  {% endfor %}
+  {% else %}
+  <h5>No subjects have been added</h5>
+  {% endif %}
+</div>
 <script>
   var formatEl = document.getElementById("id_format");
   M.FormSelect.init(formatEl);
