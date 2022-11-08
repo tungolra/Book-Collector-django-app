@@ -52,17 +52,8 @@ def add_format(request, book_id):
         new_format = form.save(commit=False)
         new_format.book_id = book_id
         new_format.save()
-    # return HttpResponseRedirect(reverse('books:detail', book_id=(book.id)))
     return redirect('books:detail', book_id)
 
-
-# class HomeView(generic.View):
-#     template_name = 'home.html'
-
-# class AboutView(generic.View):
-#     template_name = 'about.html'
-# in a ListView, the queryset of model instances will be available via attributes named
-# object_list and cat_list (again, the lowercase name of the Model with _list appended to it).
 class IndexView(generic.ListView):
     model = Book
     template_name = 'books/index.html'
