@@ -3,7 +3,7 @@ from django.urls import reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views import generic
 
-from .models import Book, Format, Subject
+from .models import Book, Format, Subject, User
 from .forms import FormatForm
 
 # Create your views here.
@@ -39,7 +39,10 @@ def books_detail(request, book_id):
 class BookCreate(generic.CreateView):
     model = Book
     fields = '__all__'
-    success_url = '/books/'
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+    # success_url = '/books/'
 
 
 class BookUpdate(generic.UpdateView):

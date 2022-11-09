@@ -24,10 +24,13 @@
           </ul>
           <ul class="right">
             <li><a href="{% url 'books:about' %}">About</a></li>
+            {%if user.is_authenticated%}
             <li><a href="{% url 'books:books_create'%}">Add A Book</a></li>
-            <li>
-              <a href="{% url 'books:books_index' %}">View All My Books</a>
-            </li>
+            <li><a href="{% url 'books:books_index' %}">View All My Books</a></li>
+            <li><a href="{% url 'logout'%}">Log Out</a></li>
+            {%else%}
+            <li><a href="{% url 'login'%}">Log In</a></li>
+            {% endif %}
           </ul>
         </div>
       </nav>

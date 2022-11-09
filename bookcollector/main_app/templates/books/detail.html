@@ -4,10 +4,10 @@
   <div class="col s6">
     <div class="card">
       <div class="card-content">
-        <span class="card-title">Title: {{book.title}}</span>
+        <span class="card-title teal-text" >{{book.title}}</span>
         <p>Author: {{book.author}}</p>
+        <p>Published: {{book.publish_year}}</p>
         <p>Genre: {{book.genre}}</p>
-        <p>Publish Year: {{book.publish_year}}</p>
       </div>
       <div class="card-action">
         <a href="{% url 'books:books_update' book.id%}">Edit</a>
