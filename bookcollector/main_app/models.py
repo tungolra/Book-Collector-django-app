@@ -3,6 +3,7 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 # Create your models here.
 
+
 class Subject(models.Model):
     type = models.CharField(max_length=50)
 
@@ -11,6 +12,7 @@ class Subject(models.Model):
 
     def get_absolute_url(self):
         return reverse('books:detail', kwargs={'subject_id': self.id})
+
 
 class Book(models.Model):
     author = models.CharField(max_length=100)
@@ -44,5 +46,3 @@ class Format(models.Model):
 
     def __str__(self):
         return f"Format: {self.get_format_display()}, Price: {self.price}"
-
-
