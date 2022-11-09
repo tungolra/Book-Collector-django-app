@@ -16,10 +16,23 @@ def home(request):
 def about(request):
     return render(request, 'about.html')
 
+
 def books_detail(request, book_id):
     book = Book.objects.get(id=book_id)
+    # subjects = book.subjects.all()
+    subjects_book_doesnt_have = Subject.objects.exclude(
+        id__in=book.subjects.all().values_list('id'))
     format_form = FormatForm()
-    return render(request, 'books/detail.html', {'book': book, 'format_form': format_form})
+    # print (Subject.objects)
+    # print (subjects)
+    return render(request, 'books/detail.html', {
+        'book': book, 'format_form': format_form, 'exclSubjects': subjects_book_doesnt_have
+    })
+# class BookDetailsView(generic.DetailView):
+#     model = Book
+#     template_name = 'books/detail.html'
+#     def get_queryset(self):
+#         return super().get_queryset()
 
 
 class BookCreate(generic.CreateView):
@@ -31,6 +44,7 @@ class BookCreate(generic.CreateView):
 class BookUpdate(generic.UpdateView):
     model = Book
     fields = '__all__'
+
 
 class BookDelete(generic.DeleteView):
     model = Book
@@ -45,6 +59,7 @@ def add_format(request, book_id):
         new_format.save()
     return redirect('books:detail', book_id)
 
+
 class IndexView(generic.ListView):
     model = Book
     template_name = 'books/index.html'
@@ -53,8 +68,6 @@ class IndexView(generic.ListView):
         context = super().get_context_data(**kwargs)
         return context
 
-# class BookDetailsView(generic.DetailView):
-#     model = Book
-#     template_name = 'books/detail.html'
-#     def get_queryset(self):
-#         return super().get_queryset()
+
+# class SubjectList(generic.ListView):
+#     model = Subject
