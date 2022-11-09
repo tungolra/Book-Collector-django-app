@@ -13,6 +13,8 @@ urlpatterns = [
     path('books/<int:book_id>/add_format/',
          views.add_format, name='add_format'),
     path('books/<int:book_id>/assoc_subject/<int:subject_id>/',
-         views.assoc_subject, name='assoc_subject')
+         views.assoc_subject, name='assoc_subject'),
+    path('books/<int:book_id>/unassoc_subject/<int:subject_id>/',
+         views.unassoc_subject, name='unassoc_subject'),
     # path('subjects/', views.SubjectList.as_view(), name='subjects_index')
 ]

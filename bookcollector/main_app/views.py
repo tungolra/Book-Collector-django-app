@@ -67,3 +67,8 @@ def add_format(request, book_id):
 def assoc_subject(request, book_id, subject_id):
     Book.objects.get(id=book_id).subjects.add(subject_id)
     return redirect('books:detail', book_id)
+
+
+def unassoc_subject(request, book_id, subject_id):
+    Book.objects.get(id=book_id).subjects.remove(subject_id)
+    return redirect('books:detail', book_id)
