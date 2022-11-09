@@ -9,7 +9,7 @@ class Subject(models.Model):
         return self.type
 
     def get_absolute_url(self):
-        return reverse('books:detail', kwargs={'book_id': self.id})
+        return reverse('books:detail', kwargs={'subject_id': self.id})
 
 class Book(models.Model):
     author = models.CharField(max_length=100)

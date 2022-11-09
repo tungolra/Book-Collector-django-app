@@ -17,22 +17,23 @@ def about(request):
     return render(request, 'about.html')
 
 
+class IndexView(generic.ListView):
+    model = Book
+    template_name = 'books/index.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
+
+
 def books_detail(request, book_id):
     book = Book.objects.get(id=book_id)
-    # subjects = book.subjects.all()
     subjects_book_doesnt_have = Subject.objects.exclude(
         id__in=book.subjects.all().values_list('id'))
     format_form = FormatForm()
-    # print (Subject.objects)
-    # print (subjects)
     return render(request, 'books/detail.html', {
         'book': book, 'format_form': format_form, 'exclSubjects': subjects_book_doesnt_have
     })
-# class BookDetailsView(generic.DetailView):
-#     model = Book
-#     template_name = 'books/detail.html'
-#     def get_queryset(self):
-#         return super().get_queryset()
 
 
 class BookCreate(generic.CreateView):
@@ -60,14 +61,9 @@ def add_format(request, book_id):
     return redirect('books:detail', book_id)
 
 
-class IndexView(generic.ListView):
-    model = Book
-    template_name = 'books/index.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        return context
-
-
 # class SubjectList(generic.ListView):
 #     model = Subject
+
+def assoc_subject(request, book_id, subject_id):
+    Book.objects.get(id=book_id).subjects.add(subject_id)
+    return redirect('books:detail', book_id)
