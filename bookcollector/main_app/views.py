@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .models import Book, Format, Subject, User
-from .forms import FormatForm
+from .forms import FormatForm, BookForm
 
 # Create your views here.
 
@@ -45,14 +45,25 @@ def books_detail(request, book_id):
     })
 
 
-class BookCreate(LoginRequiredMixin, generic.CreateView):
-    model = Book
-    fields = ['author', 'title', 'genre', 'publish_year']
+# class BookCreate(LoginRequiredMixin, generic.CreateView):
+#     model = Book
+#     fields = ['author', 'title', 'genre', 'publish_year']
 
-    def form_valid(self, form):
-        form.instance.user = self.request.user
-        return super().form_valid(form)
+#     def form_valid(self, form):
+#         form.instance.user = self.request.user
+#         return super().form_valid(form)
     # success_url = '/books/'
+
+@login_required
+def books_create(request):
+    context = {}
+    form = BookForm(request.POST)
+    if form.is_valid():
+        form.save(commit=False)
+        form.instance.user = request.user
+        form.save()
+    context['form'] = form
+    return render(request, 'main_app/book_form.html', context)
 
 
 class BookUpdate(LoginRequiredMixin, generic.UpdateView):
