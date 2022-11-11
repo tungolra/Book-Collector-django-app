@@ -9,6 +9,7 @@ urlpatterns = [
     path('books/', views.books_index, name='books_index'),
     path('books/<int:book_id>/', views.books_detail, name='detail'),
     # path('books/create/', views.BookCreate.as_view(), name="books_create"),
+    path('books/new', views.books_new, name="books_new"),
     path('books/create/', views.books_create, name="books_create"),
     path('books/<int:pk>/update/', views.BookUpdate.as_view(), name='books_update'),
     path('books/<int:pk>/delete/', views.BookDelete.as_view(), name='books_delete'),

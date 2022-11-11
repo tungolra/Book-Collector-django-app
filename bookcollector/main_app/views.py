@@ -53,6 +53,9 @@ def books_detail(request, book_id):
 #         form.instance.user = self.request.user
 #         return super().form_valid(form)
     # success_url = '/books/'
+def books_new(request): 
+    form = BookForm()
+    return render(request, 'books/new.html', {'form': form})
 
 @login_required
 def books_create(request):
@@ -63,7 +66,8 @@ def books_create(request):
         form.instance.user = request.user
         form.save()
     context['form'] = form
-    return render(request, 'main_app/book_form.html', context)
+    return redirect('/books')
+    # return render(request, 'main_app/book_form.html', context)
 
 
 class BookUpdate(LoginRequiredMixin, generic.UpdateView):
