@@ -2,7 +2,12 @@ from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
 # Create your models here.
-
+FORMATS = (
+    ('S', 'Soft Cover'),
+    ('H', 'Hard Cover'),
+    ('E', 'Electronic Copy'),
+    ('A', 'Audio Book')
+)
 
 class Subject(models.Model):
     type = models.CharField(max_length=50)
@@ -30,12 +35,7 @@ class Book(models.Model):
 
 
 class Format(models.Model):
-    FORMATS = (
-        ('S', 'Soft Cover'),
-        ('H', 'Hard Cover'),
-        ('E', 'Electronic Copy'),
-        ('A', 'Audio Book')
-    )
+
     format = models.CharField(
         max_length=1,
         choices=FORMATS,
