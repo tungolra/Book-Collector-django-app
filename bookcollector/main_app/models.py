@@ -22,6 +22,7 @@ class Subject(models.Model):
 class Book(models.Model):
     author = models.CharField(max_length=100)
     title = models.CharField(max_length=100)
+    subtitle = models.CharField(max_length=100)
     genre = models.CharField(max_length=100)
     publish_year = models.IntegerField()
     subjects = models.ManyToManyField(Subject)
