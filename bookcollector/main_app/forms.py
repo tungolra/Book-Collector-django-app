@@ -9,4 +9,4 @@ class FormatForm(ModelForm):
 class BookForm(ModelForm):
     class Meta: 
         model = Book
-        fields = ['author', 'title', 'genre', 'publish_year']
+        fields = ['author', 'title', 'subtitle', 'genre', 'publish_year']
