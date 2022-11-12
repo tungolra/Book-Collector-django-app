@@ -53,6 +53,7 @@ def books_detail(request, book_id):
 #         form.instance.user = self.request.user
 #         return super().form_valid(form)
     # success_url = '/books/'
+
 def books_new(request): 
     form = BookForm()
     return render(request, 'books/new.html', {'form': form})
@@ -72,7 +73,7 @@ def books_create(request):
 
 class BookUpdate(LoginRequiredMixin, generic.UpdateView):
     model = Book
-    fields = '__all__'
+    fields = ['author', 'title', 'genre', 'publish_year']
 
 
 class BookDelete(LoginRequiredMixin, generic.DeleteView):

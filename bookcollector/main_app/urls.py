@@ -19,6 +19,5 @@ urlpatterns = [
          views.assoc_subject, name='assoc_subject'),
     path('books/<int:book_id>/unassoc_subject/<int:subject_id>/',
          views.unassoc_subject, name='unassoc_subject'),
-    path('accounts/signup/', views.signup, name='signup')
-    # path('subjects/', views.SubjectList.as_view(), name='subjects_index')
+    path('accounts/signup/', views.signup, name='signup'),
 ]
